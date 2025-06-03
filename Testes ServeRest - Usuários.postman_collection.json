@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "3866688d-48c4-4c4a-8820-bfb0d8951c0d",
+		"name": "Testes ServeRest - Usuários",
+		"description": "StartFragment\n\n- `Testes para os endpoints de usuários da API ServeRest`\n    \n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44479652",
+		"_collection_link": "https://giovanna-9110139.postman.co/workspace/Estudos-EBAC~4ab40923-d444-4d83-abe1-1d864f85b083/collection/44479652-3866688d-48c4-4c4a-8820-bfb0d8951c0d?action=share&source=collection_link&creator=44479652"
+	},
+	"item": [
+		{
+			"name": "POST /Usuários",
+			"item": [
+				{
+					"name": "Asserções",
+					"item": [
+						{
+							"name": "Positivo",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Negativo",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Negativo 2",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Positivo",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Negativo",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Negativo 2",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET /Usuários",
+			"item": [
+				{
+					"name": "Usuário",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "usuarios/{_id}",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "usuarios/{_id} editar",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "usuarios/{_id} deletar",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
