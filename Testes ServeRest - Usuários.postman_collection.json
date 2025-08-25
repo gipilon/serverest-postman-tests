@@ -9,99 +9,222 @@
 	},
 	"item": [
 		{
-			"name": "POST /Usuários",
+			"name": "Positivo",
+			"item": []
+		},
+		{
+			"name": "Negativo",
 			"item": [
 				{
-					"name": "Asserções",
-					"item": [
+					"name": "Tentar cadastrar um email ja existente",
+					"event": [
 						{
-							"name": "Positivo",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						},
-						{
-							"name": "Negativo",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
-						},
-						{
-							"name": "Negativo 2",
-							"request": {
-								"method": "GET",
-								"header": []
-							},
-							"response": []
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Asserção 1: Verifica se o status code de erro é 400 (Bad Request)\r",
+									"pm.test(\"Status code é 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
-					]
-				},
-				{
-					"name": "Positivo",
+					],
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Negativo",
+					"name": "Excluir um usuário que não existe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Asserção 1: Verifica se o status code é 200 (a API ServeRest retorna 200 mesmo sem encontrar)\r",
+									"pm.test(\"Status code é 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Asserção 2: Verifica a mensagem de que nenhum registro foi excluído\r",
+									"pm.test(\"Verifica a mensagem 'Nenhum registro excluído'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"Nenhum registro excluído\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "Negativo 2",
-					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/usuarios/idInvalido123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"usuarios",
+								"idInvalido123"
+							]
+						}
 					},
 					"response": []
 				}
 			]
 		},
 		{
-			"name": "GET /Usuários",
-			"item": [
+			"name": "Cadastrar um novo usuário",
+			"event": [
 				{
-					"name": "Usuário",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "usuarios/{_id}",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "usuarios/{_id} editar",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				},
-				{
-					"name": "usuarios/{_id} deletar",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Asserção 1: Verifica se o status code da resposta é 201 (Created)\r",
+							"pm.test(\"Status code é 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"// Asserção 2: Verifica a mensagem de sucesso\r",
+							"pm.test(\"Verifica a mensagem 'Cadastro realizado com sucesso'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Cadastro realizado com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
 				}
-			]
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Giovanna Pilon\",\r\n  \"email\": \"giovannapilon@qa.com\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuários cadastrados",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Asserção: Verifica se o status code da resposta é 200 (OK)\r",
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar um usuário",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Asserção 1: Verifica se o status code é 200 (OK)\r",
+							"pm.test(\"Status code é 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Asserção 2: Verifica a mensagem de sucesso\r",
+							"pm.test(\"Verifica a mensagem 'Registro alterado com sucesso'\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.message).to.eql(\"Registro alterado com sucesso\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Giovanna Pilon Editada\",\r\n  \"email\": \"giovannapilon.editada@qa.com\",\r\n  \"password\": \"teste\",\r\n  \"administrador\": \"true\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/usuarios/JAY5BAaFKUG8QD86",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"usuarios",
+						"JAY5BAaFKUG8QD86"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
